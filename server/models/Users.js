@@ -39,8 +39,19 @@ const UserSchema = new Schema(
     branch: {
       type: String,
     },
+    code: {
+      type: String,
+    },
     country: {
       type: String,
+    },
+    account_verification: {
+      type: Boolean,
+      default: false
+    },
+    status: {
+      type: Boolean,
+      default: true
     },
   },
   { timestamps: true }

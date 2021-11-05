@@ -8,11 +8,14 @@ const router = Router();
 
 const {
   newUser,
-  completeUserReg
+  completeUserReg,
+  verify,
+  getUser
 } = UserController;
 
 router.post('/create', newUser);
-router.post('/complete/reg', completeUserReg, auth);
-
+router.post('/verify', verify);
+router.post('/complete/reg', auth, completeUserReg);
+router.get('/get', auth, getUser);
 
 export default router;

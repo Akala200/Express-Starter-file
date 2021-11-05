@@ -52,7 +52,11 @@ class AuthController {
   static async manualLogin(req, res) {
     let user;
     const { email, password } = req.body;
-
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json(responses.error(400, 'Kindly fill all required information'));
+    }
     try {
       user = await User.findOne({ email });
     } catch (error) {
