@@ -9,7 +9,7 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    username: {
+    email: {
       type: String,
       trim: true,
       required: true,
@@ -17,6 +17,30 @@ const UserSchema = new Schema(
       unique: true,
     },
     password: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      trim: true,
+      required: true,
+      lowercase: true,
+      unique: true,
+    },
+    full_name: {
+      type: String,
+      required: true,
+    },
+    date_of_birth: {
+      type: String,
+    },
+    church_group: {
+      type: String,
+    },
+    branch: {
+      type: String,
+    },
+    country: {
       type: String,
     },
   },

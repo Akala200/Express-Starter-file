@@ -39,18 +39,17 @@ class UserController {
    */
   static async newUser(req, res) {
     const {
-      username, password, role
+      email, password, full_name, phone
     } = req.body;
 
-    if (!username || !password || !role) {
+    if (!email || !password || !full_name || !phone) {
       return res
         .status(400)
         .json(responses.error(400, 'Kindly fill all required information'));
     }
 
     try {
-      console.log('here');
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ email });
 
       if (user) {
         return res
@@ -59,9 +58,10 @@ class UserController {
       }
 
       const userObject = {
-        username,
+        email,
         password,
-        role,
+        full_name,
+        phone
       };
 
       const createdUser = await User.create(userObject);
@@ -78,58 +78,55 @@ class UserController {
     }
   }
 
+
   /**
-   *@description Login into user account
+   *@description Complete user registration
    *@static
    *@param  {Object} req - request
    *@param  {object} res - response
-   *@returns {object} - status code, message and created wallet
-   *@memberof userController
+   *@returns {object} - status code, message and created User
+   *@memberof UsersController
    */
+  static async completeUserReg(req, res) {
+    const {
+      date_of_birth, church_group, branch, country
+    } = req.body;
+    const id = req.userId;
 
-  static async login(req, res) {
-    let user;
-    const { username, password } = req.body;
+
+    if (!date_of_birth || !church_group || !branch || !country) {
+      return res
+        .status(400)
+        .json(responses.error(400, 'Kindly fill all required information'));
+    }
 
     try {
-      user = await User.findOne({ username });
+      const user = await User.findById({ id });
+
+      if (!user) {
+        return res
+          .status(404)
+          .json(responses.error(400, 'User does not exists'));
+      }
+
+      const userObject = {
+        date_of_birth, church_group, branch, country
+      };
+
+      const updatedUser = await User.findOneAndUpdate({ _id: id }, userObject, { new: true, runValidators: true, });
+
+      if (updatedUser) {
+        return res
+          .status(201)
+          .json(responses.success(200, 'User successfully created', updatedUser));
+      }
     } catch (error) {
+      tracelogger(error);
       return res
         .status(500)
-        .json(responses.error(500, { msg: 'Server error' }));
+        .json(responses.error(500, 'Server error', error));
     }
-
-    if (!user) {
-      return res.status(401).json(responses.error(401, 'Unable to login'));
-    }
-
-    const valid = await bcrypt.compare(password, user.password);
-
-    if (!valid) {
-      return res.status(401).json(responses.error(401, 'Unable to login'));
-    }
-
-    const TokenData = {
-      id: user._id,
-      username,
-    };
-
-    //  Generate Token
-    const token = await signToken(TokenData);
-
-    const userData = {
-      username: user.username,
-      deposit: user.deposit,
-      role: user.role,
-      id: user._id,
-      token,
-    };
-
-    return res
-      .status(200)
-      .json(responses.success(200, 'Login successfully', userData));
   }
- 
 }
 
 export default UserController;
