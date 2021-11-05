@@ -12,7 +12,7 @@ const {
 } = UserController;
 
 router.post('/create', newUser);
-router.post('/complete/reg', auth, completeUserReg);
+router.post('/complete/reg', completeUserReg, auth);
 
 
 export default router;
