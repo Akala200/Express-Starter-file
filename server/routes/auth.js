@@ -13,6 +13,6 @@ const {
 
 router.post('/manual/login', manualLogin);
 router.post('/google/auth', generateAuthGoogleUrl);
-router.post('/google/verification', googleRedirect);
+router.get('/google/verification', googleRedirect);
 
 export default router;
