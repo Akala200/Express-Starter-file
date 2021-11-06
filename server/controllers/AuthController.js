@@ -18,7 +18,7 @@ const NodeGoogleLogin = require('node-google-login');
 const config = {
   clientID: '874343667104-gvtprv5do8dht2g9e15kpon152etlt5t.apps.googleusercontent.com',
   clientSecret: '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',
-  redirectURL: 'https://createapp22.herokuapp.com/api/google/verification',
+  redirectURL: 'https://createapp22.herokuapp.com/api/auth/google/verification',
   defaultScope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
