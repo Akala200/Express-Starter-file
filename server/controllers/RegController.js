@@ -15,20 +15,20 @@ import tracelogger from '../logger/tracelogger';
 import responses from '../utils/responses';
 
 const mailjet = require('node-mailjet')
-  .connect('acb15f6ba3f5163faa7eda63b49538ec', '04f6cd2f6facba7695ccf98afeefece6');
+  .connect('67a7d92c947e039b9cda7c8d96cda4d3', '7ed03cd715282523453cbf5a87940d0a');
 
 /**
  * @description Defines the actions to for the users endpoints
- * @class UsersController
+ * @class RegController
  */
-class UserController {
+class RegController {
   /**
    *@description The user class
    *@static
    *@param  {Object} req - request
    *@param  {object} res - response
    *@returns {object} - status code, message and created wallet
-   *@memberof UsersController
+   *@memberof RegController
    */
 
 
@@ -38,7 +38,7 @@ class UserController {
    *@param  {Object} req - request
    *@param  {object} res - response
    *@returns {object} - status code, message and created User
-   *@memberof UsersController
+   *@memberof RegController
    */
   static async newUser(req, res) {
     const {
@@ -78,8 +78,8 @@ class UserController {
           Messages: [
             {
               From: {
-                Email: 'test1@gmail.com',
-                Name: 'Church Application',
+                Email: 'testlag222@gmail.com',
+                Name: 'test'
               },
               To: [
                 {
@@ -121,7 +121,7 @@ class UserController {
    *@param  {Object} req - request
    *@param  {object} res - response
    *@returns {object} - status code, message and created wallet
-   *@memberof userController
+   *@memberof RegController
    */
 
   static async verify(req, res) {
@@ -175,50 +175,18 @@ class UserController {
   }
 
   /**
-   *@description Get a User
-   *@static
-   *@param  {Object} req - request
-   *@param  {object} res - response
-   *@returns {object} - status code, message and created User
-   *@memberof UsersController
-   */
-  static async getUser(req, res) {
-    const { id } = req.user;
-
-    try {
-      const user = await User.findById({ _id: id });
-
-      if (!user) {
-        return res
-          .status(400)
-          .json(responses.error(400, 'Sorry, this user does not exist'));
-      } else {
-        return res
-          .status(201)
-          .json(responses.success(200, 'User successfully retrieved', user));
-      }
-    } catch (error) {
-      tracelogger(error);
-      return res
-        .status(500)
-        .json(responses.error(500, 'Server error', error));
-    }
-  }
-
-  /**
    *@description Complete user registration
    *@static
    *@param  {Object} req - request
    *@param  {object} res - response
    *@returns {object} - status code, message and created User
-   *@memberof UsersController
+   *@memberof RegController
    */
   static async completeUserReg(req, res) {
     const {
       date_of_birth, church_group, branch, country
     } = req.body;
     const { id } = req.user;
-    console.log(id);
 
 
     if (!date_of_birth || !church_group || !branch || !country) {
@@ -254,6 +222,37 @@ class UserController {
         .json(responses.error(500, 'Server error', error));
     }
   }
+
+  /**
+   *@description Get a User
+   *@static
+   *@param  {Object} req - request
+   *@param  {object} res - response
+   *@returns {object} - status code, message and created User
+   *@memberof RegController
+   */
+  static async getUser(req, res) {
+    const { id } = req.user;
+
+    try {
+      const user = await User.findById({ _id: id });
+
+      if (!user) {
+        return res
+          .status(400)
+          .json(responses.error(400, 'Sorry, this user does not exist'));
+      } else {
+        return res
+          .status(201)
+          .json(responses.success(200, 'User successfully retrieved', user));
+      }
+    } catch (error) {
+      tracelogger(error);
+      return res
+        .status(500)
+        .json(responses.error(500, 'Server error', error));
+    }
+  }
 }
 
-export default UserController;
+export default RegController;

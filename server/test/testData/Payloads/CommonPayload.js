@@ -9,7 +9,7 @@ exports.getRequestBody = (username, password) => ({
   }
 });
 
-exports.userBody = (username, password, role) => ({
+exports.userBody = (username, password) => ({
   username,
   password,
 });

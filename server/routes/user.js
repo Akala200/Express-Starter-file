@@ -1,6 +1,6 @@
 /* eslint-disable import/named */
 import { Router } from 'express';
-import UserController from '../controllers/UserController';
+import RegController from '../controllers/RegController';
 import { auth } from '../middlewares/authMiddleware';
 
 
@@ -11,7 +11,7 @@ const {
   completeUserReg,
   verify,
   getUser
-} = UserController;
+} = RegController;
 
 router.post('/create', newUser);
 router.post('/verify', verify);
