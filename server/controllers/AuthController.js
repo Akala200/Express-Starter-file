@@ -18,7 +18,7 @@ const NodeGoogleLogin = require('node-google-login');
 const config = {
   clientID: '874343667104-gvtprv5do8dht2g9e15kpon152etlt5t.apps.googleusercontent.com',
   clientSecret: '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',
-  redirectURL: 'https://createapp22.herokuapp.com',
+  redirectURL: 'https://createapp22.herokuapp.com/api/google/verification',
   defaultScope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
@@ -67,6 +67,11 @@ class AuthController {
 
     if (!user) {
       return res.status(401).json(responses.error(401, 'Unable to login'));
+    }
+
+
+    if (user.account_verification === false) {
+      return res.status(400).json(responses.error(400, 'Kindly verify your account'));
     }
 
     const valid = await bcrypt.compare(password, user.password);
