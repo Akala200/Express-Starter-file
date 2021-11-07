@@ -39,6 +39,9 @@ const UserSchema = new Schema(
     branch: {
       type: String,
     },
+    zone: {
+      type: String,
+    },
     code: {
       type: String,
     },

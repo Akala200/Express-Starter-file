@@ -184,7 +184,7 @@ class RegController {
    */
   static async completeUserReg(req, res) {
     const {
-      date_of_birth, church_group, branch, country
+      date_of_birth, church_group, branch, country, zone
     } = req.body;
     const { id } = req.user;
 
