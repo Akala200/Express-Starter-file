@@ -10,12 +10,10 @@ const {
   newUser,
   completeUserReg,
   verify,
-  getUser
 } = RegController;
 
 router.post('/create', newUser);
 router.post('/verify', verify);
 router.post('/complete/reg', auth, completeUserReg);
-router.get('/get', auth, getUser);
 
 export default router;
