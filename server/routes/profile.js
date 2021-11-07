@@ -10,6 +10,6 @@ const {
   getUser,
 } = ProfileContoller;
 
-router.get('/user/get', auth, getUser);
+router.get('/get', auth, getUser);
 
 export default router;
