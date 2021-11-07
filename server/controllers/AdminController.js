@@ -40,8 +40,8 @@ class AdminController {
    *@returns {object} - status code, message and get a User
    *@memberof AdminController
    */
-  static async getUser(req, res) {
-    const { id } = req.user;
+  static async getUserForAdmin(req, res) {
+    const { id } = req.query;
 
     try {
       const user = await User.findById({ _id: id });
@@ -52,7 +52,7 @@ class AdminController {
           .json(responses.error(400, 'Sorry, this user does not exist'));
       } else {
         return res
-          .status(201)
+          .status(200)
           .json(responses.success(200, 'User successfully retrieved', user));
       }
     } catch (error) {

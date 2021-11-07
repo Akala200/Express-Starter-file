@@ -6,9 +6,12 @@ import AdminController from '../controllers/AdminController';
 const router = Router();
 
 const {
-  getUser,
+  getUserForAdmin,
   getAllUser,
 } = AdminController;
 
-router.get('/user/get', getUser);
-router.put('/user/all', getAllUser);
+router.get('/user/get', getUserForAdmin);
+router.get('/user/all', getAllUser);
+
+
+export default router;
