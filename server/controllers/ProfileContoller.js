@@ -62,6 +62,42 @@ class ProfileContoller {
         .json(responses.error(500, 'Server error', error));
     }
   }
+
+
+  /**
+   *@description Update a user profile
+   *@static
+   *@param  {Object} req - request
+   *@param  {object} res - response
+   *@returns {object} - status code, message and Updated user profile
+   *@memberof ProfileContoller
+   */
+  static async updateUser(req, res) {
+    const { id } = req.user;
+    if (!req.body) {
+      return res
+        .status(400)
+        .json(responses.error(400, 'Data to update can not be empty!'));
+    }
+    try {
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: id },
+        req.body,
+        { new: true }
+      );
+
+      if (updatedUser) {
+        return res
+          .status(200)
+          .json(responses.success(200, 'User successfully updated', updatedUser));
+      }
+    } catch (error) {
+      tracelogger(error);
+      return res
+        .status(500)
+        .json(responses.error(500, 'Server error', error));
+    }
+  }
 }
 
 export default ProfileContoller;

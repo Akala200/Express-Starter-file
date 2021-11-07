@@ -8,8 +8,10 @@ const router = Router();
 
 const {
   getUser,
+  updateUser,
 } = ProfileContoller;
 
 router.get('/get', auth, getUser);
+router.put('/update', auth, updateUser);
 
 export default router;
