@@ -11,6 +11,7 @@ const responses = {
     return successMessage;
   },
 
+
   // error function
   error: (statusCode, message) => {
     const errorMessage = {
