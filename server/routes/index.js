@@ -1,13 +1,13 @@
 import express from 'express';
-import userRoutes from './user';
-
+import registrationRoutes from './registration';
+import profileRoutes from './profile';
 import authRoutes from './auth';
 
 
 const app = express();
 
 app.use('/auth', authRoutes);
-
-app.use('/user', userRoutes);
+app.use('/profile', profileRoutes);
+app.use('/reg', registrationRoutes);
 
 export default app;
