@@ -79,6 +79,12 @@ class ProfileContoller {
         .status(400)
         .json(responses.error(400, 'Data to update can not be empty!'));
     }
+
+    if (req.body.email) {
+      return res
+        .status(400)
+        .json(responses.error(400, 'You need to verify the email before you can update it!'));
+    }
     try {
       const updatedUser = await User.findOneAndUpdate(
         { _id: id },
