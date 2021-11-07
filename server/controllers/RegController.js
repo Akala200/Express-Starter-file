@@ -13,6 +13,7 @@ import { signToken } from '../utils/storeToken';
 import User from '../models/Users';
 import tracelogger from '../logger/tracelogger';
 import responses from '../utils/responses';
+import groupFromAdmin from '../admin_service/api_actions';
 
 const mailjet = require('node-mailjet')
   .connect('67a7d92c947e039b9cda7c8d96cda4d3', '7ed03cd715282523453cbf5a87940d0a');
@@ -172,6 +173,58 @@ class RegController {
         }
       }
     );
+  }
+
+
+  /**
+   *@description Get all Group from Admin service
+   *@static
+   *@param  {Object} req - request
+   *@param  {object} res - response
+   *@returns {object} - status code, message and group from Admin service
+   *@memberof AdminController
+   */
+  static async getAllGroups(req, res) {
+    try {
+      const user = await groupFromAdmin.getGroupList();
+      console.log(user.body.data);
+      const data = user.body.data;
+
+      return res
+        .status(200)
+        .json(responses.success(200, 'Groups successfully retrieved', data));
+    } catch (error) {
+      tracelogger(error);
+      return res
+        .status(500)
+        .json(responses.error(500, 'Server error', error));
+    }
+  }
+
+
+  /**
+   *@description Get all Group from Admin service
+   *@static
+   *@param  {Object} req - request
+   *@param  {object} res - response
+   *@returns {object} - status code, message and group from Admin service
+   *@memberof AdminController
+   */
+  static async getAllBranches(req, res) {
+    try {
+      const user = await groupFromAdmin.getBranchList();
+      console.log(user.body.data);
+      const data = user.body.data;
+
+      return res
+        .status(200)
+        .json(responses.success(200, 'Branches successfully retrieved', data));
+    } catch (error) {
+      tracelogger(error);
+      return res
+        .status(500)
+        .json(responses.error(500, 'Server error', error));
+    }
   }
 
   /**

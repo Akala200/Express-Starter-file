@@ -8,6 +8,8 @@ const config = {
   DB_TEST: process.env.DB_URL_TEST,
   secretOrKey: process.env.JWT_TOKEN_SECRET,
   api_key: process.env.API_KEY,
+  Admin_base_url: process.env.ADMIN_BASE_URL,
+
 };
 
 export default config;
