@@ -153,7 +153,7 @@ class AuthController {
     const { email } = req.body;
 
     try {
-      const user = await User.findById({ email });
+      const user = await User.findOne({ email });
 
       if (!user) {
         return res
