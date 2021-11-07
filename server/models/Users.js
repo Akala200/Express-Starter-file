@@ -49,6 +49,10 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false
     },
+    reset_password: {
+      type: Boolean,
+      default: false
+    },
     status: {
       type: Boolean,
       default: true

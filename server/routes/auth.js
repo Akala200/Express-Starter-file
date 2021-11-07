@@ -9,10 +9,12 @@ const {
   manualLogin,
   generateAuthGoogleUrl,
   googleRedirect,
+  forgetPassword,
 } = AuthController;
 
 router.post('/manual/login', manualLogin);
 router.post('/google/auth', generateAuthGoogleUrl);
 router.get('/google/verification', googleRedirect);
+router.get('/forgot/password', forgetPassword);
 
 export default router;

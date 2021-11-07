@@ -99,7 +99,7 @@ class RegController {
             console.log(result.body);
             return res
               .status(201)
-              .json(responses.success(201, 'Account created, kindly proceed.', code));
+              .json(responses.success(201, 'Account created, kindly proceed.'));
           })
           .catch((err) => {
             console.log(err.statusCode);
@@ -214,37 +214,6 @@ class RegController {
         return res
           .status(201)
           .json(responses.success(200, 'User successfully created', updatedUser));
-      }
-    } catch (error) {
-      tracelogger(error);
-      return res
-        .status(500)
-        .json(responses.error(500, 'Server error', error));
-    }
-  }
-
-  /**
-   *@description Get a User
-   *@static
-   *@param  {Object} req - request
-   *@param  {object} res - response
-   *@returns {object} - status code, message and created User
-   *@memberof RegController
-   */
-  static async getUser(req, res) {
-    const { id } = req.user;
-
-    try {
-      const user = await User.findById({ _id: id });
-
-      if (!user) {
-        return res
-          .status(400)
-          .json(responses.error(400, 'Sorry, this user does not exist'));
-      } else {
-        return res
-          .status(201)
-          .json(responses.success(200, 'User successfully retrieved', user));
       }
     } catch (error) {
       tracelogger(error);
