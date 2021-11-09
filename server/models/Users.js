@@ -34,7 +34,7 @@ const UserSchema = new Schema(
       type: String,
     },
     church_group: {
-      type: String,
+      type: Array,
     },
     branch: {
       type: String,
