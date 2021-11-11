@@ -36,6 +36,9 @@ const UserSchema = new Schema(
     church_group: {
       type: Array,
     },
+    avartar: {
+      type: String,
+    },
     branch: {
       type: String,
     },

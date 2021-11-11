@@ -7,15 +7,20 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable require-jsdoc */
-import bcrypt from 'bcrypt';
-import randomstring from 'randomstring';
-import { signToken } from '../utils/storeToken';
+
+import cloudinary from 'cloudinary';
 import User from '../models/Users';
 import tracelogger from '../logger/tracelogger';
 import responses from '../utils/responses';
+import config from '../config/index';
 
-const mailjet = require('node-mailjet')
-  .connect('67a7d92c947e039b9cda7c8d96cda4d3', '7ed03cd715282523453cbf5a87940d0a');
+const mailjet = require('node-mailjet').connect('67a7d92c947e039b9cda7c8d96cda4d3', '7ed03cd715282523453cbf5a87940d0a');
+
+cloudinary.config({
+  cloud_name: config.cloudinary_name,
+  api_key: config.cloudinary_key,
+  api_secret: config.cloudinary_secret,
+});
 
 /**
  * @description Defines the actions to for the users endpoints
@@ -54,6 +59,42 @@ class ProfileContoller {
         return res
           .status(201)
           .json(responses.success(200, 'User successfully retrieved', user));
+      }
+    } catch (error) {
+      tracelogger(error);
+      return res
+        .status(500)
+        .json(responses.error(500, 'Server error', error));
+    }
+  }
+
+
+  /**
+   *@description Upload user avarta
+   *@static
+   *@param  {Object} req - request
+   *@param  {object} res - response
+   *@returns {object} - status code, message and response Url
+   *@memberof ProfileContoller
+   */
+  static async uplaodAvarta(req, res) {
+    const { id } = req.user;
+
+    try {
+      const imageUrl = await cloudinary.uploader.upload(req.file.path);
+      const data = {
+        avartar: imageUrl.secure_url
+      };
+
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: id },
+        data,
+        { new: true }
+      );
+      if (updatedUser) {
+        return res
+          .status(200)
+          .json(responses.success(200, 'Avartar updated successfully', updatedUser));
       }
     } catch (error) {
       tracelogger(error);
