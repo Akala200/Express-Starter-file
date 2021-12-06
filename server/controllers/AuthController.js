@@ -153,7 +153,7 @@ class AuthController {
   static async facebookAuth(req, res) {
     const { token } = req.body;
     try {
-      const response = await axios.get(`"https://graph.facebook.com/USER-ID?fields=id,name,email,picture,phone&access_token=${token}`);
+      const response = await axios.get(`https://graph.facebook.com/USER-ID?fields=id,name,email,picture,phone&access_token=${token}`);
       console.log(response);
       const user = await User.findOne({ email: response.email });
       if (user) {
