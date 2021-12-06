@@ -10,6 +10,9 @@ const config = {
   api_key: process.env.API_KEY,
   Admin_base_url: process.env.ADMIN_BASE_URL,
   Event_base_url: process.env.EVENT_BASE_URL,
+  Desk_base_url: process.env.DESK_BASE_URL,
+  Desk_api: process.env.DESK_API_KEY,
+
   Event_api: process.env.EVENT_API_KEY,
   cloudinary_name: process.env.CLOUDINARY_NAME,
   cloudinary_key: process.env.CLOUDINARY_KEY,

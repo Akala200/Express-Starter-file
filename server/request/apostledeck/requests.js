@@ -30,12 +30,14 @@ exports.getBaseURL = () => {
 
 /** This sendPOSTRequest can be used when you dont need to pass a token while performing a POST operation * */
 
-exports.sendPOSTRequest = async (baseUrl, apiEndPoint, requestBody) => {
+exports.sendPOSTRequest = async (baseUrl, apiEndPoint, requestBody, api) => {
+  const API_KEY = { api_key: `${api}` };
+
   try {
     const res = await supertest(baseUrl).post(apiEndPoint).retry(2)
       .set(headers.ACCEPT_JSON)
       .set(headers.APPLICATION_JSON)
-      .set(headers.API_KEY)
+      .set(API_KEY)
       .send(requestBody);
     return res;
   } catch (err) {
@@ -45,13 +47,15 @@ exports.sendPOSTRequest = async (baseUrl, apiEndPoint, requestBody) => {
 
 /** This sendPOSTRequest1 can be used when you will be passing a token and body params while performing a POST operation * */
 
-exports.sendPOSTRequest1 = async (baseUrl, apiEndPoint, requestBody) => {
+exports.sendPOSTRequest1 = async (baseUrl, apiEndPoint, requestBody, api) => {
+  const API_KEY = { api_key: `${api}` };
+
   try {
     console.log(baseUrl + apiEndPoint);
     const res = await supertest('').post(baseUrl + apiEndPoint).retry(2)
       .set(headers.ACCEPT_JSON)
       .set(headers.APPLICATION_JSON)
-      .set(headers.API_KEY)
+      .set(API_KEY)
       .send(requestBody);
     return res;
   } catch (err) {
@@ -61,12 +65,14 @@ exports.sendPOSTRequest1 = async (baseUrl, apiEndPoint, requestBody) => {
 
 /** This sendGETRequest can be used when you will be passing a token while performing a GET operation * */
 
-exports.sendGETRequest = async (baseUrl, apiEndPoint) => {
+exports.sendGETRequest = async (baseUrl, apiEndPoint, api) => {
+  const API_KEY = { api_key: `${api}` };
+
   try {
     const res = await supertest(baseUrl).get(apiEndPoint).retry(2)
       .set(headers.ACCEPT_JSON)
       .set(headers.APPLICATION_JSON)
-      .set(headers.API_KEY);
+      .set(API_KEY);
     return res;
   } catch (err) {
     console.log('Error in sending GET Request: ', err);
@@ -75,12 +81,14 @@ exports.sendGETRequest = async (baseUrl, apiEndPoint) => {
 
 /** This sendPUTRequest can be used when you will be passing a token and body params while performing a PUT operation * */
 
-exports.sendPUTRequest = async (baseUrl, apiEndPoint, requestBody) => {
+exports.sendPUTRequest = async (baseUrl, apiEndPoint, requestBody, api) => {
+  const API_KEY = { api_key: `${api}` };
+
   try {
     const res = await supertest(baseUrl).put(apiEndPoint).retry(2)
       .set(headers.ACCEPT_JSON)
       .set(headers.APPLICATION_JSON)
-      .set(headers.API_KEY)
+      .set(API_KEY)
       .send(requestBody);
     return res;
   } catch (err) {
@@ -90,12 +98,14 @@ exports.sendPUTRequest = async (baseUrl, apiEndPoint, requestBody) => {
 
 /** This sendDELETERequest can be used when you will be passing a token while performing a DELETE operation * */
 
-exports.sendDELETERequest = async (baseUrl, apiEndPoint) => {
+exports.sendDELETERequest = async (baseUrl, apiEndPoint, api) => {
+  const API_KEY = { api_key: `${api}` };
+
   try {
     const res = await supertest(baseUrl).delete(apiEndPoint).retry(2)
       .set(headers.ACCEPT_JSON)
       .set(headers.APPLICATION_JSON)
-      .set(headers.API_KEY);
+      .set(API_KEY);
     return res;
   } catch (err) {
     console.log('Error in sending DELETE Request: ', err);

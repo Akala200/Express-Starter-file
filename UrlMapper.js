@@ -4,7 +4,10 @@ exports.UrlMapper = {
   GROUP: '/group/all',
   BRANCH: '/branch/all',
   CREATE: '/user/create/',
-  EVENT: '/event/all/',
+  EVENT: '/event/all',
+  MESSAGE: '/message/all',
+  A_MESSAGE: '/message/all',
+  CONTENT: '/content/get',
 
 
 };
