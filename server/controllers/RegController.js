@@ -102,7 +102,7 @@ class RegController {
             console.log(result.body);
             return res
               .status(201)
-              .json(responses.success(201, 'Account created, kindly proceed.'));
+              .json(responses.success(201, 'Account created, kindly proceed.', code));
           })
           .catch((err) => {
             console.log(err.statusCode);
