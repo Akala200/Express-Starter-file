@@ -9,6 +9,7 @@
 /* eslint-disable require-jsdoc */
 import tracelogger from '../logger/tracelogger';
 import responses from '../utils/responses';
+import User from '../request/apostledeck/api_actions';
 
 
 /**

@@ -54,16 +54,9 @@ class RegController {
 
     try {
       const user = await User.findOne({ phone });
-      const checkEmail = await User.findOne({ email });
 
 
       if (user) {
-        return res
-          .status(400)
-          .json(responses.error(400, 'Sorry, this user already exist'));
-      }
-
-      if (checkEmail.email === email) {
         return res
           .status(400)
           .json(responses.error(400, 'Sorry, this user already exist'));

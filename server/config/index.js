@@ -9,6 +9,8 @@ const config = {
   secretOrKey: process.env.JWT_TOKEN_SECRET,
   api_key: process.env.API_KEY,
   Admin_base_url: process.env.ADMIN_BASE_URL,
+  Event_base_url: process.env.EVENT_BASE_URL,
+  Event_api: process.env.EVENT_API_KEY,
   cloudinary_name: process.env.CLOUDINARY_NAME,
   cloudinary_key: process.env.CLOUDINARY_KEY,
   cloudinary_secret: process.env.CLOUDINARY_SECRET
