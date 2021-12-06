@@ -25,13 +25,11 @@ const UserSchema = new Schema(
       trim: true,
       required: true,
       lowercase: true,
+      unique: true,
     },
     full_name: {
       type: String,
       required: true,
-    },
-    date_of_birth: {
-      type: String,
     },
     facebook_id: {
       type: String,
@@ -43,9 +41,6 @@ const UserSchema = new Schema(
       type: String,
     },
     branch: {
-      type: String,
-    },
-    zone: {
       type: String,
     },
     country: {

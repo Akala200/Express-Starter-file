@@ -60,6 +60,13 @@ class RegController {
           .status(400)
           .json(responses.error(400, 'Sorry, this user already exist'));
       }
+
+      if (user.email === email) {
+        return res
+          .status(400)
+          .json(responses.error(400, 'Sorry, this user already exist'));
+      }
+
       const code = randomstring.generate({
         length: 4,
         charset: 'numeric',
