@@ -53,7 +53,7 @@ class RegController {
     }
 
     try {
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ phone });
 
       if (user) {
         return res

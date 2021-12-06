@@ -7,7 +7,6 @@ const saltRounds = 10; // or another integer in that ballpark
 
 const { Schema } = mongoose;
 
-
 const UserSchema = new Schema(
   {
     email: {
@@ -47,9 +46,6 @@ const UserSchema = new Schema(
       type: String,
     },
     zone: {
-      type: String,
-    },
-    code: {
       type: String,
     },
     country: {
