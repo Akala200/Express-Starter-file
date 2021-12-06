@@ -14,6 +14,8 @@ import User from '../models/Users';
 import tracelogger from '../logger/tracelogger';
 import responses from '../utils/responses';
 
+const axios = require('axios').default;
+
 const NodeGoogleLogin = require('node-google-login');
 const mailjet = require('node-mailjet')
   .connect('67a7d92c947e039b9cda7c8d96cda4d3', '7ed03cd715282523453cbf5a87940d0a');
@@ -137,6 +139,59 @@ class AuthController {
     let user;
     const data = await googleLogin.getUserProfile('AUTH_CODE');
     console.log(data);
+  }
+
+
+  /**
+   *@description Google redirect
+   *@static
+   *@param  {Object} req - request
+   *@param  {object} res - response
+   *@returns {object} - status code, message and response
+   *@memberof userController
+   */
+  static async facebookAuth(req, res) {
+    const { token } = req.body;
+    try {
+      const response = await axios.get(`"https://graph.facebook.com/USER-ID?fields=id,name,email,picture,phone&access_token=${token}`);
+      console.log(response);
+      const user = await User.findOne({ email: response.email });
+      if (user) {
+        const TokenData = {
+          id: user._id,
+          email: user.email,
+        };
+
+        //  Generate Token
+        const token = await signToken(TokenData);
+
+        const userData = {
+          user,
+          token,
+        };
+
+        return res
+          .status(200)
+          .json(responses.success(200, 'Login successfully', userData));
+      } else {
+        const userObject = {
+          email: response.email != null ? response.email : '',
+          full_name: response.name != null ? response.name : '',
+          phone: response.phone != null ? response.phone : '',
+          avartar: response.picture.data.url != null ? response.picture.data.url : '',
+
+        };
+
+        const createdUser = await User.create(userObject);
+        if (createdUser) {
+          return res
+            .status(201)
+            .json(responses.success(201, 'Account created, kindly proceed', createdUser));
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 

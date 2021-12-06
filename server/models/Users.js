@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
@@ -15,6 +16,7 @@ const UserSchema = new Schema(
       required: true,
       lowercase: true,
       unique: true,
+      match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     },
     password: {
       type: String,
@@ -31,6 +33,9 @@ const UserSchema = new Schema(
       required: true,
     },
     date_of_birth: {
+      type: String,
+    },
+    facebook_id: {
       type: String,
     },
     church_group: {
