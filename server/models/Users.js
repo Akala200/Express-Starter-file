@@ -37,7 +37,7 @@ const UserSchema = new Schema(
       type: Array,
     },
     code: {
-      type: Array,
+      type: String,
     },
     avartar: {
       type: String,
