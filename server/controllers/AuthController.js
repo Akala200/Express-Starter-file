@@ -153,9 +153,8 @@ class AuthController {
   static async facebookAuth(req, res) {
     const { token } = req.body;
     try {
-      const response = await axios.get(`https://graph.facebook.com/USER-ID?fields=id,name,email,picture,phone&access_token=${token}`);
-      console.log(response);
-      const user = await User.findOne({ email: response.email });
+      const req = await axios.get(`https://graph.facebook.com/USER-ID?fields=id,name,email,picture,phone&access_token=${token}`);
+      const user = await User.findOne({ email: req.email });
       if (user) {
         const TokenData = {
           id: user._id,
@@ -175,10 +174,10 @@ class AuthController {
           .json(responses.success(200, 'Login successfully', userData));
       } else {
         const userObject = {
-          email: response.email != null ? response.email : '',
-          full_name: response.name != null ? response.name : '',
-          phone: response.phone != null ? response.phone : '',
-          avartar: response.picture.data.url != null ? response.picture.data.url : '',
+          email: req.email != null ? req.email : '',
+          full_name: req.name != null ? req.name : '',
+          phone: req.phone != null ? req.phone : '',
+          avartar: req.picture.data.url != null ? req.picture.data.url : '',
 
         };
 
@@ -190,7 +189,10 @@ class AuthController {
         }
       }
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data.error.message);
+      return res
+        .status(400)
+        .json(responses.success(400, error.response.data.error.message));
     }
   }
 
