@@ -5,9 +5,12 @@ exports.UrlMapper = {
   BRANCH: '/branch/all',
   CREATE: '/user/create/',
   EVENT: '/event/all',
-  MESSAGE: '/message/all',
-  A_MESSAGE: '/message/all',
-  CONTENT: '/content/get',
+  ALL_MESSAGE: '/api/message/all',
+  ONE_MESSAGE: '/api/user/message',
+  BIBLE_BOOK: '/api/bible/book',
+  BIBLE_TITLE: '/api/bible/book/titles',
+  BIBLE_CHAPTER: '/api/bible/book/chapter',
+  BIBLE_VERSE: '/api/bible/book/chapter/verse',
 
 
 };

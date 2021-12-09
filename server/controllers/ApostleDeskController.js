@@ -87,8 +87,10 @@ class ApostleDeskController {
    *@memberof ApostleDeskController
    */
   static async getAMessage(req, res) {
+    const { id } = req.query;
+
     try {
-      const message = await Event.getAMessage();
+      const message = await Event.getAMessage(id);
       const data = message.body.data;
 
       return res

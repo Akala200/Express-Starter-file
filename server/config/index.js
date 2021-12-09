@@ -13,6 +13,9 @@ const config = {
   Desk_base_url: process.env.DESK_BASE_URL,
   Desk_api: process.env.DESK_API_KEY,
 
+  Bible_base_url: process.env.BIBLE_BASE_URL,
+  Bible_api: process.env.BIBLE_API_KEY,
+
   Event_api: process.env.EVENT_API_KEY,
   cloudinary_name: process.env.CLOUDINARY_NAME,
   cloudinary_key: process.env.CLOUDINARY_KEY,

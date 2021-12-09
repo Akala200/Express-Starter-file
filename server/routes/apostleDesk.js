@@ -13,8 +13,8 @@ const {
 } = ApostleDeskController;
 
 router.get('/event/all', getAllEvent);
-router.get('/messages/all', getAllMessage);
-router.get('/message', getAMessage);
+router.get('/sermon/all', getAllMessage);
+router.get('/sermon', getAMessage);
 router.get('/content', getContent);
 
 

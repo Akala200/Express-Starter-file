@@ -24,13 +24,13 @@ exports.getEventList = async function () {
 
 exports.getMessages = async function () {
   URL = config.Desk_base_url;
-  const res = await baseActions.sendGETRequest(URL, baseURLMapper.MESSAGE, config.Desk_api);
+  const res = await baseActions.sendGETRequest(URL, baseURLMapper.ALL_MESSAGE, config.Desk_api);
   return res;
 };
 
-exports.getAMessage = async function () {
+exports.getAMessage = async function (id) {
   URL = config.Desk_base_url;
-  const res = await baseActions.sendGETRequest(URL, baseURLMapper.A_MESSAGE, config.Desk_api);
+  const res = await baseActions.sendGETRequest(URL, `${baseURLMapper.ONE_MESSAGE}?id=${id}`, config.Desk_api);
   return res;
 };
 
@@ -38,5 +38,30 @@ exports.getAMessage = async function () {
 exports.getContent = async function (message) {
   URL = config.Desk_base_url;
   const res = await baseActions.sendGETRequest(URL, `${baseURLMapper.CONTENT}?message=${message}`, config.Desk_api);
+  return res;
+};
+
+exports.getBibleBook = async function (version, book) {
+  URL = config.Bible_base_url;
+  const res = await baseActions.sendGETRequest(URL, `${baseURLMapper.BIBLE_BOOK}?version=${version}&book=${book}`, config.Bible_api);
+  return res;
+};
+
+exports.getBibleBooks = async function (version) {
+  URL = config.Bible_base_url;
+  const res = await baseActions.sendGETRequest(URL, `${baseURLMapper.BIBLE_TITLE}?version=${version}`, config.Bible_api);
+  return res;
+};
+
+
+exports.getBibleChapter = async function (version, book, chapter) {
+  URL = config.Bible_base_url;
+  const res = await baseActions.sendGETRequest(URL, `${baseURLMapper.BIBLE_CHAPTER}?version=${version}&book=${book}&chapter=${chapter}`, config.Bible_api);
+  return res;
+};
+
+exports.getBibleVerse = async function (version, book, chapter, verse) {
+  URL = config.Bible_base_url;
+  const res = await baseActions.sendGETRequest(URL, `${baseURLMapper.BIBLE_VERSE}?version=${version}&book=${book}&chapter=${chapter}&verse=${verse}`, config.Bible_api);
   return res;
 };

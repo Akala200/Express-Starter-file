@@ -51,6 +51,7 @@
     "node-error-handler": "^1.2.2",
     "node-google-login": "^1.0.1",
     "node-mailjet": "^3.3.4",
+    "node-pre-gyp": "^0.17.0",
     "randomstring": "^1.1.5",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
