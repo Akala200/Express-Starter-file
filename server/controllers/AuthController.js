@@ -164,9 +164,10 @@ class AuthController {
         }
       }
     } catch (error) {
+      console.log(error.response.data);
       return res
         .status(500)
-        .json(responses.error(500, { msg: 'Server error' }));
+        .json(responses.error(500, error.response.data));
     }
   }
 
