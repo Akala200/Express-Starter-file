@@ -9,7 +9,7 @@
 /* eslint-disable require-jsdoc */
 import tracelogger from '../logger/tracelogger';
 import responses from '../utils/responses';
-import Event from '../request/apostledeck/api_actions';
+import Bible from '../request/apostledeck/api_actions';
 
 
 /**
@@ -26,7 +26,6 @@ class BibleController {
    *@memberof BibleController
    */
 
-
   /**
    *@description Get Bible Book
    *@static
@@ -41,7 +40,7 @@ class BibleController {
       book
     } = req.query;
     try {
-      const bible = await Event.getBibleBook(version, book);
+      const bible = await Bible.getBibleBook(version, book);
       const value = bible.body.data;
       const data = value != null ? value : 'No data available';
       return res
@@ -69,7 +68,7 @@ class BibleController {
       version,
     } = req.query;
     try {
-      const bible = await Event.getBibleBooks(version);
+      const bible = await Bible.getBibleBooks(version);
       const value = bible.body.data;
       const data = value != null ? value : 'No data available';
       return res
@@ -99,7 +98,7 @@ class BibleController {
       chapter,
     } = req.query;
     try {
-      const bible = await Event.getBibleChapter(version, book, chapter);
+      const bible = await Bible.getBibleChapter(version, book, chapter);
       const value = bible.body.data;
       const data = value != null ? value : 'No data available';
 
@@ -132,7 +131,7 @@ class BibleController {
     } = req.query;
 
     try {
-      const bible = await Event.getBibleVerse(version, book, chapter, verse);
+      const bible = await Bible.getBibleVerse(version, book, chapter, verse);
       const value = bible.body.data;
       const data = value != null ? value : 'No data available';
 
@@ -148,57 +147,6 @@ class BibleController {
   }
   // getBibleBooks
 
-  /**
-   *@description Ping Server
-   *@static
-   *@param  {Object} req - request
-   *@param  {object} res - response
-   *@returns {object} - status code, message
-   *@memberof BibleController
-   */
-  static async getAllMessage(req, res) {
-    try {
-      const event = await Event.getMessages();
-      const data = event.body.data;
-
-      return res
-        .status(200)
-        .json(responses.success(200, 'Messages successfully retrieved', data));
-    } catch (error) {
-      tracelogger(error);
-      return res
-        .status(500)
-        .json(responses.error(500, 'Server error', error));
-    }
-  }
-
-
-  /**
-   *@description Ping Server
-   *@static
-   *@param  {Object} req - request
-   *@param  {object} res - response
-   *@returns {object} - status code, message
-   *@memberof BibleController
-   */
-  static async getAMessage(req, res) {
-    const { id } = req.query;
-
-    try {
-      const message = await Event.getAMessage(id);
-      const data = message.body.data;
-
-      return res
-        .status(200)
-        .json(responses.success(200, 'Message successfully retrieved', data));
-    } catch (error) {
-      tracelogger(error);
-      return res
-        .status(500)
-        .json(responses.error(500, 'Server error', error));
-    }
-  }
-
 
   /**
    *@description Ping Server
@@ -212,7 +160,7 @@ class BibleController {
     const { message } = req.query;
 
     try {
-      const content = await Event.getContent(message);
+      const content = await Bible.getContent(message);
       const data = content.body.data;
 
       return res

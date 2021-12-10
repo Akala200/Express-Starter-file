@@ -7,7 +7,7 @@ const router = Router();
 
 const {
   manualLogin,
-  generateAuthGoogleUrl,
+  googleAuth,
   googleRedirect,
   forgetPassword,
   confirmPassword,
@@ -16,7 +16,7 @@ const {
 } = AuthController;
 
 router.post('/manual/login', manualLogin);
-router.post('/google/auth', generateAuthGoogleUrl);
+router.post('/google/auth', googleAuth);
 router.get('/google/verification', googleRedirect);
 router.post('/forgot/password', forgetPassword);
 router.post('/confirm/password', confirmPassword);

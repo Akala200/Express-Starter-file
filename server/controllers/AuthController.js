@@ -111,14 +111,58 @@ class AuthController {
    *@returns {object} - status code, message and Generate Google Auth Link response
    *@memberof userController
    */
-  static async generateAuthGoogleUrl(req, res) {
-    try {
-      const authURL = googleLogin.generateAuthUrl();
-      console.log(authURL);
+  static async googleAuth(req, res) {
+    const { token } = req.body;
 
-      return res
-        .status(200)
-        .json(responses.success(200, 'auth url received', authURL));
+    try {
+      const google = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`);
+      console.log(google, 'google');
+      const user = await User.findOne({ email: google.email });
+      if (user) {
+        const TokenData = {
+          id: user._id,
+          email: user.email,
+        };
+
+        //  Generate Token
+        const token = await signToken(TokenData);
+
+        const userData = {
+          user,
+          token,
+        };
+
+        return res
+          .status(200)
+          .json(responses.success(200, 'Login successfully', userData));
+      } else {
+        const userObject = {
+          email: google.email != null ? google.email : '',
+          full_name: google.name != null ? google.name : '',
+          phone: google.phone != null ? google.phone : '',
+          avartar: google.picture != null ? google.picture : '',
+
+        };
+
+        const createdUser = await User.create(userObject);
+        const TokenData = {
+          id: createdUser._id,
+          email: createdUser.email,
+        };
+
+        //  Generate Token
+        const token = await signToken(TokenData);
+
+        const userData = {
+          createdUser,
+          token,
+        };
+        if (createdUser) {
+          return res
+            .status(201)
+            .json(responses.success(201, 'Account created, kindly proceed', userData));
+        }
+      }
     } catch (error) {
       return res
         .status(500)
@@ -153,8 +197,9 @@ class AuthController {
   static async facebookAuth(req, res) {
     const { token } = req.body;
     try {
-      const req = await axios.get(`https://graph.facebook.com/USER-ID?fields=id,name,email,picture,phone&access_token=${token}`);
-      const user = await User.findOne({ email: req.email });
+      const facebook = await axios.get(`https://graph.facebook.com/USER-ID?fields=id,name,email,picture,phone&access_token=${token}`);
+      console.log(facebook, 'facebook');
+      const user = await User.findOne({ email: facebook.email });
       if (user) {
         const TokenData = {
           id: user._id,
@@ -174,18 +219,30 @@ class AuthController {
           .json(responses.success(200, 'Login successfully', userData));
       } else {
         const userObject = {
-          email: req.email != null ? req.email : '',
-          full_name: req.name != null ? req.name : '',
-          phone: req.phone != null ? req.phone : '',
-          avartar: req.picture.data.url != null ? req.picture.data.url : '',
+          email: facebook.email != null ? facebook.email : '',
+          full_name: facebook.name != null ? facebook.name : '',
+          phone: facebook.phone != null ? facebook.phone : '',
+          avartar: facebook.picture.data.url != null ? facebook.picture.data.url : '',
 
         };
 
         const createdUser = await User.create(userObject);
+        const TokenData = {
+          id: createdUser._id,
+          email: createdUser.email,
+        };
+
+        //  Generate Token
+        const token = await signToken(TokenData);
+
+        const userData = {
+          createdUser,
+          token,
+        };
         if (createdUser) {
           return res
             .status(201)
-            .json(responses.success(201, 'Account created, kindly proceed', createdUser));
+            .json(responses.success(201, 'Account created, kindly proceed', userData));
         }
       }
     } catch (error) {
